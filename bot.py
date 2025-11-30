@@ -8,7 +8,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes, filters, Cal
 from telegram.error import RetryAfter, TelegramError
 
 # === CONFIG ===
-TOKEN = "8578138471:AAGvTkbbNMU2O3dGZFPEYluG4BaVoXZyUe4"
+TOKEN = "8570354114:AAGZbWctX1hcms0jC2DDEW1VXQcs5bRdEQ0"
 OWNER_ID = 8516723793
 API_URL = "https://learn.aakashitutor.com/api/getquizfromid?nid="
 DEFAULT_BATCH_SIZE = 1000
