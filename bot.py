@@ -8,6 +8,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes, filters, Cal
 from telegram.error import RetryAfter, TelegramError
 
 # === CONFIG ===
+# PASTE YOUR TOKEN HERE
 TOKEN = "8199293894:AAEFcim7xASE9ExdT1DUBFLznLOtSNhP9O4"
 OWNER_ID = 8392116306
 API_URL = "https://learn.aakashitutor.com/api/getquizfromid?nid="
@@ -114,17 +115,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "<i>BOT BY - kคli liຖนxx</i>"
     )
 
-
-  # Check if this is a callback query or a command
-  if update.callback_query:
-    # Edit the existing message
-    await safe_send(
-      update.callback_query.edit_message_text,
-      welcome_text,
-      parse_mode=constants.ParseMode.HTML,
-      reply_markup=reply_markup
-    )
-
+    # Check if this is a callback query or a command
+    if update.callback_query:
+        # Edit the existing message
+        await safe_send(
+            update.callback_query.edit_message_text,
+            welcome_text,
+            parse_mode=constants.ParseMode.HTML,
+            reply_markup=reply_markup
+        )
     else:
         # Send a new message
         await safe_send(
@@ -729,7 +728,7 @@ async def perform_search(chat_id, start_nid, end_nid, batch_size, context):
                  f"📈 <b>Checked:</b> {final_count} NIDs\n"
                  f"🎯 <b>Found:</b> {found_count} results\n"
                  f"🏁 <b>Status:</b> <code>Completed</code>\n\n"
-                 f"Thank you for using NID Scanner Bot!\n\n"
+                 "Thank you for using NID Scanner Bot!\n\n"
                  f"<i>BOT BY - kคli liຖนxx</i>",
             parse_mode=constants.ParseMode.HTML
         )
@@ -865,8 +864,8 @@ async def unauthorized_command(update: Update, context: ContextTypes.DEFAULT_TYP
 # === MAIN ===
 def main():
     """Starts the bot."""
-    if not TOKEN:
-        logger.error("🚫 BOT_TOKEN environment variable not set.")
+    if not TOKEN or TOKEN == "YOUR_TELEGRAM_BOT_TOKEN_HERE":
+        logger.error("🚫 BOT_TOKEN is not set in the script.")
         return
     
     app = Application.builder().token(TOKEN).concurrent_updates(True).build()
