@@ -96,27 +96,34 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     reply_markup = InlineKeyboardMarkup(keyboard)
     
-    welcome_text = (
-        f"🌟 <b>Welcome to NID Scanner Bot</b> 🌟\n\n"
-        f"👋 Hello, <b>{update.effective_user.first_name}</b>!\n\n"
-        f"🔍 <b>What I can do:</b>\n"
-        f"• Scan NID ranges for valid tests\n"
-        f"• Real-time progress tracking\n"
-        f"• Batch processing for efficiency\n\n"
-        f"{'👑 <b>Admin Status:</b> Owner\n' if is_owner else '✅ <b>Status:</b> Authorized User\n'}"
-        f"🚀 <b>Ready to scan!</b> Choose an option below:\n\n"
-        f"<i>BOT BY - kคli liຖนxx</i>"
+  status_text = (
+    "👑 <b>Admin Status:</b> Owner\n"
+    if is_owner
+    else "✅ <b>Status:</b> Authorized User\n"
+  )
+
+  welcome_text = (
+    "🌟 <b>Welcome to NID Scanner Bot</b> 🌟\n\n"
+    f"👋 Hello, <b>{update.effective_user.first_name}</b>!\n\n"
+    "🔍 <b>What I can do:</b>\n"
+    "• Scan NID ranges for valid tests\n"
+    "• Real-time progress tracking\n"
+    "• Batch processing for efficiency\n\n"
+    f"{status_text}"
+    "🚀 <b>Ready to scan!</b> Choose an option below:\n\n"
+    "<i>BOT BY - kคli liຖนxx</i>"
+  )
+
+  # Check if this is a callback query or a command
+  if update.callback_query:
+    # Edit the existing message
+    await safe_send(
+      update.callback_query.edit_message_text,
+      welcome_text,
+      parse_mode=constants.ParseMode.HTML,
+      reply_markup=reply_markup
     )
-    
-    # Check if this is a callback query or a command
-    if update.callback_query:
-        # Edit the existing message
-        await safe_send(
-            update.callback_query.edit_message_text,
-            welcome_text,
-            parse_mode=constants.ParseMode.HTML,
-            reply_markup=reply_markup
-        )
+
     else:
         # Send a new message
         await safe_send(
